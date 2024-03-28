@@ -1,0 +1,47 @@
+*{
+  box-sizing: border-box;
+}
+body
+{
+  background-image: url(1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.t
+{
+  color:white;
+  justify-content: center;
+  align-items: center;
+  margin-left: 50vh;
+  margin-top: 40vh;
+  font-size: 90px;
+  font-weight: bold;
+}
+.p
+{
+  color: white;
+  margin-left: 55vh;
+  font-size: 35px;
+  font-weight: bold;
+}
+.b
+{
+  margin-left: 90vh;
+  align-items: center;
+  font-size: 17px;
+  font-family: Arial;
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  background-color:darkturquoise;
+  color:darkblue;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.b:hover
+{
+  background-color: white;
+}
