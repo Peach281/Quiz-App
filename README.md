@@ -1,6 +1,6 @@
-<div style="text-align:center">
+<center>
     <h1>Quizzyverse</h1>
-</div>
+</center>
 
 ## Description
 ### This is a web application created using React as frontend and python's Flask framework as backend  
