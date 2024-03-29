@@ -20,10 +20,12 @@
     brew install node
     ```
 ### Install Dependencies
+- Install npm
     ```bash
     npm i
     ```
 ### Run
+- Type
     ```bash
     npm run dev
     ```
