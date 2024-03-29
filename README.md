@@ -21,7 +21,7 @@
     ```
 ### - Install Dependencies
     ```bash
-        npm i
+    npm i
     ```
 ### Run
 - Use the command
