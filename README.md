@@ -19,12 +19,12 @@
     ```bash 
     brew install node
     ```
--Install Dependencies
+### - Install Dependencies
     ```bash
         npm i
     ```
 ### Run
-Use the command
+- Use the command
     ```bash
     npm run dev
     ```
