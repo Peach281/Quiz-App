@@ -41,12 +41,7 @@ body
     background-repeat: no-repeat;
     background-size: cover;
 }
-.reg a
-{
-    font-size: 25px;
-    color: white;
-    font-weight: bolder;
-}
+
 .login-button {
     background-color: #4CAF50; 
     color: white;

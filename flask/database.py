@@ -1,8 +1,9 @@
 from flask import Flask,request,jsonify
 from flask_cors import CORS
 import sqlite3
+import hashlib
 app = Flask(__name__)
-CORS(app, resources={r"/register": {"origins": "http://localhost:5173"}})
+CORS(app)
 DATABASE = "data.db"
 def create_table():
     db = get_db()
@@ -17,6 +18,11 @@ def create_table():
     ''')
     db.commit()
     db.close()
+import sqlite3
+
+DATABASE = "data.db"
+
+
 
 def get_db():
     db=sqlite3.connect(DATABASE)
@@ -24,6 +30,7 @@ def get_db():
     return db
 create_table()
 @app.route('/register',methods=['POST'])
+
 def register():
     data = request.get_json()
     name = data.get('username')
@@ -32,13 +39,35 @@ def register():
     if not name or not email or not password :
         return jsonify({'error':'Name and email are required'}),400
     try:
+        hashed_password=hashlib.sha256(password.encode()).hexdigest()
         db=get_db()
         cursor=db.cursor()
-        cursor.execute('INSERT INTO users (username,email,password) VALUES (?,?,?)',(name,email,password))
+        cursor.execute('INSERT INTO users (username,email,password) VALUES (?,?,?)',(name,email,hashed_password))
         db.commit()
         db.close()
         return jsonify({'message':'Data Submitted Successfully'}),200
     except Exception as  e:
         return jsonify({'error':str(e)}),500
+@app.route('/login',methods=['POST'])
+def login():
+    req=request.get_json()
+    username = req.get('username')
+    password = req.get('password')
+    if not username or not password:
+        return jsonify({'error':'Please enter the username and password'}),400
+    try:
+        db=get_db()
+        cursor=db.cursor()
+        cursor.execute('SELECT * FROM users WHERE username=?',(username,))
+        user=cursor.fetchone()
+        db.close()
+        if user:
+            hashed_password=hashlib.sha256(password.encode()).hexdigest()
+            if(hashed_password==user['password']):
+                return jsonify({'message':'Login successful'}),200
+        return jsonify({'error':'Invalid username or password'}),401
+    except Exception as e:
+        return jsonify({'error':str(e)}),500
+
 if __name__=='__main__':
     app.run(debug=True)

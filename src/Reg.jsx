@@ -8,7 +8,6 @@ function Register()
         email:"",
         password:""
     })
-    console.log(formData)
     function handleChange(event)
     {
         const {name,value} = event.target
@@ -77,6 +76,7 @@ function Register()
             <div className="form-group">
                 <button type="submit">Register</button>
             </div>
+            <p className="reg"><a href = "2.html">Already have an account?</a></p>
         </form>
     </div>
     )

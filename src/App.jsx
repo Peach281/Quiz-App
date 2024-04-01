@@ -4,7 +4,7 @@ export default function App() {
   function next()
   {
     setTimeout(()=>{
-      window.location.href="2.html"
+      window.location.href="3.html"
     },1000)
   }
   return(
