@@ -48,6 +48,10 @@ def register():
         return jsonify({'message':'Data Submitted Successfully'}),200
     except Exception as  e:
         return jsonify({'error':str(e)}),500
+@app.route('/admin')
+
+        
+
 @app.route('/login',methods=['POST'])
 def login():
     req=request.get_json()
@@ -64,10 +68,19 @@ def login():
         if user:
             hashed_password=hashlib.sha256(password.encode()).hexdigest()
             if(hashed_password==user['password']):
-                return jsonify({'message':'Login successful'}),200
+                return jsonify({'id':user['id'],'message':'Login successful'}),200
         return jsonify({'error':'Invalid username or password'}),401
     except Exception as e:
         return jsonify({'error':str(e)}),500
+@app.route('/admin',methods=['POST'])
+def admin(id):
+    data=request.get_json()
+    id = data.get('id')
+    
+    if(id==3):
+        return jsonify({'message':'You are admin'})
+    
+        
 
 if __name__=='__main__':
     app.run(debug=True)

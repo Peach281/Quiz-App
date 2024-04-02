@@ -21,27 +21,46 @@ function Login()
 	   })
 	  
     }
-	function sub1(event)
-	{
-		event.preventDefault()
-		fetch('http://localhost:5000/login',{
-			method:'POST',
-			headers:
-			{
-				'Content-Type':'application/json'
+	function sub1(event) {
+		event.preventDefault();
+		fetch('http://localhost:5000/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
 			},
-			body:JSON.stringify(logData)
+			body: JSON.stringify(logData)
 		})
-		
-		.then(response=>response.json())
-		.then(data=>{
-			console.log('Success',data)
+		.then(response => response.json())
+		.then(data => {
+			if(data.id) {
+				const userId = data.id;
+				fetch('http://localhost:5000/admin', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ id: userId })
+				})
+				.then(response => response.json())
+				.then(adminData => {
+					console.log('Admin Data:', adminData);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+	
+				alert('Successfully logged in');
+				// window.location.href = "4.html";
+			} else {
+				alert('Invalid username or password');
+			}
 		})
-		.catch(error=>{
-			console.error('Error',error)
-		})
-		
+		.catch(error => {
+			console.error('Error:', error);
+		});
 	}
+	
+	
     return(
         <div className="container">
 		<h2 className="form-group">Login</h2>

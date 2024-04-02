@@ -5,6 +5,8 @@
 	padding: 20px;
     margin-top: 200px;
     margin-bottom: -30px;
+    background-color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
 }
 .container h2
 {
@@ -15,7 +17,7 @@
 	margin-bottom: 30px;
     font-size: 25px;
     font-weight: bolder;
-    color:white;
+    color:black;
 }
 
 label {
@@ -26,25 +28,25 @@ label {
 input[type="text"], input[type="username"], input[type="password"] {
 	width: 100%;
 	padding: 5px;
-	border: 1px solid #ccc;
+	border: 1px solid black;
 	border-radius: 5px;
 	box-sizing: border-box;
 }
 
 button[type="submit"] {
 	background-color: #4CAF50;
-	color: white;
+	color: black;
 }
 body
 {
-    background-image: url(2.jpg);
+    background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .login-button {
     background-color: #4CAF50; 
-    color: white;
+    color: black;
     font-weight: bolder;
     padding: 10px 20px; 
     border: none; 
