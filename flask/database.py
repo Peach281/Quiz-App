@@ -76,6 +76,68 @@ def admin():
         return {'message':'You are admin'}
     
         
+@app.route('/SportsData',methods=['GET'])
+def ques():
+    questions=[
+        {
+            "id":1,
+            "name":"Who won the 10th Italian Open title in 2021?",
+            "options":['Novack Djokovic','Rafael Nadal','Dominic Thiem','Stefanos Tsitsipas'],
+            "answer":"Rafael Nadal"
+        },
+        {
+            "id":2,
+            "name":"Only three countries have won the Women's Rugby World Cup- New Zealand, England, and who?",
+            "options":['USA', 'Argentina' ,'Romania','Georgia'],
+            "answer":"USA"
+        }
+        ,
+        {
+            "id":3,
+            "name": "In cricket which of the following fielding positions is behind the batsman?",
+            "options":['Mid-wicket','First slip','Cover','Mid-off'],
+            "answer":"First slip"
+        },
+        {
+            "id":4,
+            "name":" The term 'Dolphin Kick' is associated with which of the following games?",
+            "options":['Badminton','Squash','Swimming','Golf'],
+            "answer":"Swimming"
+        },
+        {
+            "id":5,
+            "name":"Which boxer fought against Muhammad Ali and won?",
+            "options":['Joe Frazier','Tony Esperti', 'Jim Robinson', 'Donnie Fleeman' ],
+            "answer":'Joe Frazier'
+        }
+        
+    ]
+    
+    return jsonify(questions)
+app.route('/LiteratureData',methods=['GET'])
+def LitData():
+    q=[
+    {
+        "id":1,
+        "name":"Who was the author of the famous storybook 'Alice's Adventures in Wonderland'?",
+        "options":["Rudyard Kipling","John Keats","Lewis Carroll","H G Wells"],
+        "answer":["Lewis Carroll"]
+    },
+    {
+        "id":2,
+        "name":"Name the book which opens with the line 'All children, except one grew up'?",
+        "options":[" The Railway Children","Winnie The Poo","Jungle Book","Peter Pan"],
+        "answer":["Peter Pan"]
+    },
+    {
+        "id":3,
+        "name":"Name the book which opens with the line 'All children, except one grew up'?",
+        "options":[" The Railway Children","Winnie The Poo","Jungle Book","Peter Pan"],
+        "answer":["Peter Pan"]
+    }
+    ]
+
+
 
 if __name__=='__main__':
     app.run(debug=True)
