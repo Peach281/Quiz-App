@@ -45,20 +45,16 @@ def register():
         cursor.execute('INSERT INTO users (username,email,password) VALUES (?,?,?)',(name,email,hashed_password))
         db.commit()
         db.close()
-        return jsonify({'message':'Data Submitted Successfully'}),200
+        return {'message':'Data Submitted Successfully'},200
     except Exception as  e:
-        return jsonify({'error':str(e)}),500
-@app.route('/admin')
-
-        
-
+        return {'error':str(e)},500
 @app.route('/login',methods=['POST'])
 def login():
     req=request.get_json()
     username = req.get('username')
     password = req.get('password')
     if not username or not password:
-        return jsonify({'error':'Please enter the username and password'}),400
+        return {'error':'Please enter the username and password'},400
     try:
         db=get_db()
         cursor=db.cursor()
@@ -68,17 +64,16 @@ def login():
         if user:
             hashed_password=hashlib.sha256(password.encode()).hexdigest()
             if(hashed_password==user['password']):
-                return jsonify({'id':user['id'],'message':'Login successful'}),200
-        return jsonify({'error':'Invalid username or password'}),401
+                return {'id':user['id'],'message':'Login successful'},200
+        return {'error':'Invalid username or password'},401
     except Exception as e:
-        return jsonify({'error':str(e)}),500
+        return {'error':str(e)},500
 @app.route('/admin',methods=['POST'])
-def admin(id):
+def admin():
     data=request.get_json()
-    id = data.get('id')
-    
-    if(id==3):
-        return jsonify({'message':'You are admin'})
+    id=data.get('id')
+    if(id==2):
+        return {'message':'You are admin'}
     
         
 

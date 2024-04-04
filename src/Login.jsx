@@ -50,7 +50,7 @@ function Login()
 				});
 	
 				alert('Successfully logged in');
-				// window.location.href = "4.html";
+				window.location.href = "4.html";
 			} else {
 				alert('Invalid username or password');
 			}

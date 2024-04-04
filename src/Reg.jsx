@@ -34,6 +34,7 @@ function Register()
         .then(response=>response.json())
         .then(data=>{
             console.log('Success',data)
+            window.location.href="4.html"
         })
         .catch(error=>{
             console.error('Error',error)
