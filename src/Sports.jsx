@@ -15,6 +15,26 @@ export default function Sports()
         .then(res=>res.json())
         .then(d=>setQues(d))
     },[])
+    React.useEffect(()=>{
+        fetch("http://localhost:5000/getPoints",
+    {
+        method:'POST',
+        headers:
+        {
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({username:username,total:total})
+    })
+        
+        .then(response=>response.json())
+        .then(data=>{
+            console.log('Success',data)
+        })
+        .catch(error=>{
+            console.error('Error',error)
+        })
+   
+    },[])
    const handleSubmit = ()=>{
         const currentQues = ques[currentIndex]
         if(ans.toLowerCase()==currentQues.answer.toLowerCase())
@@ -72,14 +92,17 @@ export default function Sports()
                     {result&&<p className="m">{message}</p>}
                 </div>
             )}
-            {currentIndex===ques.length &&(
+            {currentIndex===ques.length && (
             <div>    
             <h1>You scored {total} points out of 50</h1>
             <button className="btn" onClick={back}>Main Menu</button>
             <button  className="btn1" onClick={again}>Play again</button> 
-            </div>)}
+            </div>
+            )}
         </div>
         
+        
     )
+   
 }
 ReactDOM.createRoot(document.getElementById("root")).render(<Sports/>)

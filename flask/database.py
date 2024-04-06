@@ -13,7 +13,8 @@ def create_table():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL,
             email TEXT NOT NULL,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
+            total_score INTEGER DEFAULT 0
         )
     ''')
     db.commit()
@@ -221,6 +222,24 @@ def Politics():
         }
     ]
     return jsonify(ques)
+@app.route("/getPoints",methods=['POST'])
+def getPoints():
+    data=request.get_json()
+    username = data.get('username')
+    new_score = data.get('total')
+    try:
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT total_score FROM users WHERE id = ?', (username))
+        current_total_score = cursor.fetchone()['total_score']
+        updated_total_score = current_total_score + new_score
+        cursor.execute('UPDATE users SET total_score = ? WHERE id = ?', (updated_total_score, username))
+        db.commit()
+        db.close()
+        return jsonify({'message': 'Score updated successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__=='__main__':
     app.run(debug=True)
+

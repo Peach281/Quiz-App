@@ -78,7 +78,8 @@ export default function Literature()
                 <h1>You scored {total} points out of 80</h1>
                 <button className="btn" onClick={back}>Main Menu</button>
                 <button  className="btn1" onClick={again}>Play again</button> 
-            </div>)}
+            </div>)
+            }
         </div>
         
     )
