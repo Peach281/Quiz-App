@@ -15,7 +15,6 @@ function Gen()
             <div className="button-container">
                 <button className="btn" onClick={()=>handle('Sports')}>Sports</button>
                 <button className="btn" onClick={()=>handle('Literature')}>Literature</button>
-                <button className="btn" onClick={()=>handle('Geography')}>Geography</button>
                 <button className="btn" onClick={()=>handle('Politics')}>Politics</button>
             </div>
         </div>

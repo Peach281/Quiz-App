@@ -21,27 +21,30 @@ export default function Sports()
         {
             setMessage("Kudos! Correct answer")
             setTotal(prev=>prev+10)
-            setCount(p=>p+1)
         }
             
         else
         {
             setMessage("Oh! Wrong answer")
-            setCount(p=>p+1)
+           
         }
-            
+        setCount(p=>p+1)
         setResult(true)
-        
-   }
+    }
    const nextQues=()=>
    {
         setResult(false)
-        setResult(true)
         setCurrentIndex(prev=>prev+1)
         setAns('')
         setMessage('')
         setCount(0)
    }
+    const back=()=>{
+    window.location.href="4.html"
+    }
+    const again = ()=>{
+        window.location.href="Sports.html"
+    }
     return(
         <div>
             {ques.length>0 && currentIndex<ques.length &&(
@@ -69,7 +72,12 @@ export default function Sports()
                     {result&&<p className="m">{message}</p>}
                 </div>
             )}
-            {currentIndex===ques.length &&<h1>You scored {total} points out of 50</h1>}
+            {currentIndex===ques.length &&(
+            <div>    
+            <h1>You scored {total} points out of 50</h1>
+            <button className="btn" onClick={back}>Main Menu</button>
+            <button  className="btn1" onClick={again}>Play again</button> 
+            </div>)}
         </div>
         
     )

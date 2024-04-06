@@ -114,30 +114,113 @@ def ques():
     ]
     
     return jsonify(questions)
-app.route('/LiteratureData',methods=['GET'])
+@app.route('/LiteratureData',methods=['GET'])
 def LitData():
     q=[
     {
         "id":1,
         "name":"Who was the author of the famous storybook 'Alice's Adventures in Wonderland'?",
         "options":["Rudyard Kipling","John Keats","Lewis Carroll","H G Wells"],
-        "answer":["Lewis Carroll"]
+        "answer":"Lewis Carroll"
     },
     {
         "id":2,
         "name":"Name the book which opens with the line 'All children, except one grew up'?",
         "options":[" The Railway Children","Winnie The Poo","Jungle Book","Peter Pan"],
-        "answer":["Peter Pan"]
+        "answer":"Peter Pan"
     },
     {
         "id":3,
         "name":"Name the book which opens with the line 'All children, except one grew up'?",
         "options":[" The Railway Children","Winnie The Poo","Jungle Book","Peter Pan"],
-        "answer":["Peter Pan"]
-    }
+        "answer":"Peter Pan"
+    },
+    {
+        "id":4,
+        "name":"What author became famous for his six-volume biography of Lincoln?",
+        "options":["Mark Twain","Ruskin Bond","Carl Sandburg","HP Lovecraft"],
+        "answer":"Carl Sandburg"
+    },
+    {
+        "id":5,
+        "name":"What did Sherlock Holmes do after retiring from his detective practice?",
+        "options":["Doctor","Musician","Bee Keeper","Chef"],
+        "answer":"Bee Keeper"
+    },
+    {
+        "id":6,
+        "name":"What traveler compiled a widely read book about his travels?",
+        "options":["Christoher Columbus","Marco Polo","Ferdinand Magellan","Ponce De Leon"],
+        "answer":"Marco Polo"
+    },
+    {
+        "id":7,
+        "name":"Which is the first Harry Potter book?",
+        "options":["HP and the Goblet of Fire","HP and the Philosopher's Stone","HP and the Chamber of Secrets","HP and the God of small Things"],
+        "answer":"HP and the Philosopher's Stone"
+    },
+    {
+        "id":8,
+        "name":"What was the nationality of Robert Louis Stevenson, writer of 'Treasure Island'?",
+        "options":["Scottish","Irish","Canadian","Japanese"],
+        "answer":"Scottish"
+    },
     ]
+    return jsonify(q)
 
-
+@app.route('/PoliticsData',methods=['GET'])
+def Politics():
+    ques=[
+        {
+            "id":1,
+            "name":"Who has the right to form a new state or change the boundary?",
+            "options":['Cabinet','Parliament','Prime Minister','President'],
+            "answer":"Parliament"
+        },
+        {
+            "id":2,
+            "name":"Who was the first Vice President of India?",
+            "options":['Dr. Zakir Hussain','Gopal Swaroop Pathak','Dr. S. Radhakrishnan','None of the above'],
+            "answer":"Dr. S. Radhakrishnan"
+        },
+        {
+            "id":3,
+            "name":"Good Friday Agreement signed in 1998 was aimed to end violence in which country?",
+            "options":['Philippines','Chile','Northern Ireland','Russia'],
+            "answer":"Northern Ireland"
+        },
+        {
+            "id":4,
+            "name":"'Washington Declaration' is a bilateral agreement that was signed between the US and which country?",
+            "options":['Philippines','South Korea','Canada','UK'],
+            "answer":"South Korea"
+        },
+        {
+            "id":5,
+            "name":"'Legal Debt Ceiling' is associated with which country?",
+            "options":['USA','Japan','India','UK'],
+            "answer":"USA"
+        },
+        {
+            "id":6,
+            "name":"Ministry of External Affairs along with its counterpart of which country launched a foundation to promote dialogue between youth leaders?",
+            "options":['USA','Japan','France','UK'],
+            "answer":"France"
+        },
+        {
+            "id":7,
+            "name":"Sitiveni Rabuka, who apologised for his role in 1987 military coup, is the Prime Minister of which country?",
+            "options":['Myanmar','Thailand','South Africa','Fiji'],
+            "answer":"Fiji"
+        },
+        {
+            "id":8,
+            "name":"Which country has recently commissioned the Dangote Refinery?",
+            "options":['Russia','France','Nigeria','Sri Lanka'],
+            "answer":"Nigeria"
+        }
+    ]
+    return jsonify(ques)
 
 if __name__=='__main__':
     app.run(debug=True)
