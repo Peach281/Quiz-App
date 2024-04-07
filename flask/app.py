@@ -2,6 +2,8 @@ from flask import Flask,request,jsonify
 from flask_cors import CORS
 import sqlite3
 import hashlib
+from SportsQuestions import questions
+
 app = Flask(__name__)
 CORS(app)
 DATABASE = "data.db"
@@ -19,9 +21,19 @@ def create_table():
     ''')
     db.commit()
     db.close()
-import sqlite3
-
-DATABASE = "data.db"
+def create_ques():
+    db1=get_db()
+    cursor=db1.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS SPORTS1(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ques TEXT NOT NULL,
+        options TEXT NOT NULL,
+        answer TEXT NOT NULL
+    )
+''')
+    db1.commit()
+    db1.close()
 
 
 
@@ -30,6 +42,19 @@ def get_db():
     db.row_factory=sqlite3.Row
     return db
 create_table()
+create_ques()
+def Sports():
+
+    db=get_db()
+    cursor=db.cursor()
+    for ques in questions:
+        print(ques["name"])
+        cursor.execute('''INSERT OR REPLACE INTO SPORTS1 (ques,options,answer) VALUES(?,?,?)''',
+        (ques["name"],",".join(ques["options"]),ques["answer"]))
+    db.commit()
+    db.close()
+Sports()       
+
 @app.route('/register',methods=['POST'])
 
 def register():
@@ -75,46 +100,9 @@ def admin():
     id=data.get('id')
     if(id==2):
         return {'message':'You are admin'}
-    
-        
 @app.route('/SportsData',methods=['GET'])
-def ques():
-    questions=[
-        {
-            "id":1,
-            "name":"Who won the 10th Italian Open title in 2021?",
-            "options":['Novack Djokovic','Rafael Nadal','Dominic Thiem','Stefanos Tsitsipas'],
-            "answer":"Rafael Nadal"
-        },
-        {
-            "id":2,
-            "name":"Only three countries have won the Women's Rugby World Cup- New Zealand, England, and who?",
-            "options":['USA', 'Argentina' ,'Romania','Georgia'],
-            "answer":"USA"
-        }
-        ,
-        {
-            "id":3,
-            "name": "In cricket which of the following fielding positions is behind the batsman?",
-            "options":['Mid-wicket','First slip','Cover','Mid-off'],
-            "answer":"First slip"
-        },
-        {
-            "id":4,
-            "name":" The term 'Dolphin Kick' is associated with which of the following games?",
-            "options":['Badminton','Squash','Swimming','Golf'],
-            "answer":"Swimming"
-        },
-        {
-            "id":5,
-            "name":"Which boxer fought against Muhammad Ali and won?",
-            "options":['Joe Frazier','Tony Esperti', 'Jim Robinson', 'Donnie Fleeman' ],
-            "answer":'Joe Frazier'
-        }
-        
-    ]
-    
-    return jsonify(questions)
+
+
 @app.route('/LiteratureData',methods=['GET'])
 def LitData():
     q=[
