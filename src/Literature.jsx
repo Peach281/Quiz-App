@@ -10,11 +10,21 @@ export default function Literature()
     const [message,setMessage] = React.useState("")
     const [total,setTotal] = React.useState(0)
     const [count,setCount]= React.useState(0)
+    const[opArray,setOpArray] = React.useState([])
+    const convert = ()=>{
+        if(ques[currentIndex] && ques[currentIndex].options)
+        {
+            setOpArray(ques[currentIndex].options.split(','))
+        }
+    }
     React.useEffect(()=>{
-        fetch("http://localhost:5000/LiteratureData")
+        fetch("http://localhost:5000/Data?genre=Literature")
         .then(res=>res.json())
         .then(d=>setQues(d))
     },[])
+    React.useEffect(()=>{
+        convert()
+    },[currentIndex,ques])
    const handleSubmit = ()=>{
         const currentQues = ques[currentIndex]
         if(ans.toLowerCase()===currentQues.answer.toLowerCase())
@@ -50,10 +60,10 @@ export default function Literature()
         <div>
             {ques.length>0 && currentIndex<ques.length &&(
                 <div>
-                    <h1>{ques[currentIndex].name}</h1>
+                    <h1>{ques[currentIndex].ques}</h1>
                     <div className="list">
                     <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {ques[currentIndex].options.map((option,index)=>(
+                        {opArray.map((option,index)=>(
                             <li key={index} >
                                 <input type="radio"
                                 name="answer"

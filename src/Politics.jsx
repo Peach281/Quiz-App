@@ -10,11 +10,23 @@ function Politics()
     const [message,setMessage] = React.useState("")
     const [total,setTotal] = React.useState(0)
     const [count,setCount] = React.useState(0)
+    const[opArray,setOpArray]=React.useState([])
+    const[grandTotal,setGrandTotal] = React.useState(0)
+    const convert=()=>
+    {
+        if(ques[index] && ques[index].options){
+            setOpArray(ques[index].options.split(','));
+            
+        }
+    }
     React.useEffect(()=>{
-        fetch('http://localhost:5000/PoliticsData')
+        fetch('http://localhost:5000/Data?genre=Politics')
         .then(res=>res.json())
         .then(d=>setQues(d))
     },[])
+    React.useEffect(()=>{
+        convert()
+    },[index,ques])
     const handleSub=()=>{
         const current = ques[index]
         if(ans.toLowerCase()===current.answer.toLowerCase())
@@ -35,6 +47,7 @@ function Politics()
         setAns('')
         setMessage('')
         setCount(0)
+        setGrandTotal(prev=>prev+10)
     }
     const back=()=>{
         window.location.href="4.html"
@@ -46,10 +59,10 @@ function Politics()
         <div>
             {ques.length>0 && index<ques.length&&(
                 <div>
-                    <h1>{ques[index].name}</h1>
+                    <h1>{ques[index].ques}</h1>
                     <div className="list">
                         <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        {ques[index].options.map((option,id)=>(
+                        {opArray.map((option,id)=>(
                             <li key={id}>
                                 <input
                                 type="radio"

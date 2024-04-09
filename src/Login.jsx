@@ -43,14 +43,21 @@ function Login()
 				})
 				.then(response => response.json())
 				.then(adminData => {
-					console.log('Admin Data:', adminData);
+					if(adminData.message==="You are admin")
+					{
+						alert("You are being redirected to the admin page!")
+						window.location.href="admin.html"
+						
+					}
+					
+					else
+					{
+						alert('Successfully logged in');
+						window.location.href = "4.html";
+					}
 				})
-				.catch(error => {
-					console.error('Error:', error);
-				});
 	
-				alert('Successfully logged in');
-				window.location.href = "4.html";
+				
 			} else {
 				alert('Invalid username or password');
 			}
@@ -69,7 +76,6 @@ function Login()
 				<label htmlFor="username">Username:</label>
 				<input 
 				type="text" 
-				id="username" 
 				name="username" 
 				onChange={sub}
 				value={logData.username}
@@ -79,7 +85,6 @@ function Login()
 				<label htmlFor="password">Password:</label>
 				<input 
 				type="password" 
-				id="password" 
 				name="password" 
 				onChange={sub}
 				value={logData.password}
