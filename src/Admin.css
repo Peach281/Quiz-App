@@ -33,6 +33,22 @@ body
     text-decoration: none;
     cursor: pointer;
 }
+.btn1
+{
+    margin-bottom: 50px; 
+    font-size: 28px; 
+    padding: 10px 20px; 
+    border-radius: 5px;
+    color:blue;
+    background-color: aliceblue;
+    font-weight: bolder;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn1:hover
+{
+    background-color: rgb(20, 222, 88);
+}
 .btn:hover
 {
     background-color: rgb(192, 212, 228);

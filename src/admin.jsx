@@ -12,6 +12,9 @@ function Admin()
     const c = ()=>{
         window.location.href="ac.html"
     }
+    const menu = ()=>{
+        window.location.href="4.html"
+    }
     return(
         <div className="gen">
             <h1>Admin Privileges</h1>
@@ -19,6 +22,7 @@ function Admin()
                 <button className="btn" onClick={cret}>Create Questions</button>
                 <button className="btn" onClick={dret}>Delete Questions</button>
                 <button className="btn" onClick={c}>Change Answers</button>
+                <button className="btn1" onClick={menu}>Back to Main Menu</button>
             </div>
         </div>
     )
