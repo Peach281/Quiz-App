@@ -61,6 +61,7 @@ function Add()
                 name="name"
                 onChange={sub}
                 value={qData.name}
+                className="options1"
                 />
             </div>
             <div className="main">

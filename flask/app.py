@@ -151,7 +151,25 @@ def delete():
     except Exception as e:
         return jsonify({'error':str(e)}),500
 
-@app.route("/")
+@app.route("/change",methods=['POST'])
+def change():
+    data=request.get_json()
+    name=data.get("name")
+    answer=data.get("answer")
+    db=get_db()
+    cursor=db.cursor()
+    cursor.execute('SELECT * FROM Ques WHERE ques=?',(name,))
+    row=cursor.fetchone()
+    print(row)
+    try:
+        cursor.execute('UPDATE Ques SET answer=? WHERE ques=?', ( answer, name,))
+        db.commit()
+        db.close()
+        return jsonify({'message': 'done'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route("/getPoints",methods=['POST'])
 def getPoints():
     data=request.get_json()

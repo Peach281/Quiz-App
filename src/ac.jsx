@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import './Add.css'
-function Delete()
+function ChangeAns()
 {
     const [ques,setQues] = React.useState({
         name:"",
@@ -20,7 +20,7 @@ function Delete()
     function sub(event)
     {
         event.preventDefault()
-        fetch('http://localhost:5000/dlt',
+        fetch('http://localhost:5000/change',
         {
             method:'POST',
             headers:
@@ -32,7 +32,7 @@ function Delete()
         })
         .then(response=>response.json)
         .then(data=>{
-            alert('Question deleted successfully')
+            alert('Answer changed successfully')
             window.location.href="admin.html"})
         .catch(error=>{'error:',error})
     }
@@ -49,19 +49,29 @@ function Delete()
                     />
             </div>
             <div className="main">
-                <label htmlFor="name">Question to be deleted</label>
+                <label htmlFor="name">Question</label>
                 <input
                 type="text"
                 name="name"
                 onChange={handle}
                 value={ques.name}
+                className="options1"
                 />
             </div>
             <div className="main">
-				<button type="submit" className = "login-button">Delete!</button>
+                <label htmlFor="answer">Changed Answer</label>
+                <input
+                type="text"
+                name="answer"
+                onChange={handle}
+                value={ques.answer}
+                />
+            </div>
+            <div className="main">
+				<button type="submit" className = "login-button">Change!</button>
 			</div>
         </form>
         </div>
     )
 }
-ReactDOM.createRoot(document.getElementById("root")).render(<Delete/>)
+ReactDOM.createRoot(document.getElementById("root")).render(<ChangeAns/>)

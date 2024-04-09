@@ -9,13 +9,16 @@ function Admin()
     const dret=()=>{
         window.location.href="Delete.html"
     }
+    const c = ()=>{
+        window.location.href="ac.html"
+    }
     return(
         <div className="gen">
             <h1>Admin Privileges</h1>
             <div className="button-container">
                 <button className="btn" onClick={cret}>Create Questions</button>
                 <button className="btn" onClick={dret}>Delete Questions</button>
-                <button className="btn" >Change Answers</button>
+                <button className="btn" onClick={c}>Change Answers</button>
             </div>
         </div>
     )

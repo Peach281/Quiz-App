@@ -16,7 +16,17 @@ label {
     margin-top: 10px;
 }
 input{
-    width: 50%;
+    width: 15%;
+    height: 35px;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 5px;
+	box-sizing: border-box;
+    font-size: 17px;
+}
+.options1
+{
+    width: 40%;
     height: 35px;
 	padding: 5px;
 	border: 1px solid black;
