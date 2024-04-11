@@ -22,6 +22,7 @@
 ### Install Dependencies
 - Install npm
     ```bash
+    cd Quiz-App
     npm i
     ```
 ### Run
