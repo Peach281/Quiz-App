@@ -16,6 +16,8 @@ function Gen()
                 <button className="btn" onClick={()=>handle('Sports')}>Sports</button>
                 <button className="btn" onClick={()=>handle('Literature')}>Literature</button>
                 <button className="btn" onClick={()=>handle('Politics')}>Politics</button>
+                <button className="btn" onClick={()=>handle('Leaderboard')}>Leaderboard</button>
+                <button className="btn" onClick={()=>handle('pp')}>Past Performance</button>
             </div>
         </div>
     )

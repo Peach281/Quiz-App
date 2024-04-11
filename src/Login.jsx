@@ -7,7 +7,7 @@ function Login()
 		username:"",
 		password:""
 	})
-	
+	const[user,setUser] = React.useState("")
     function sub(event)
     {
 		
@@ -31,9 +31,11 @@ function Login()
 			body: JSON.stringify(logData)
 		})
 		.then(response => response.json())
-		.then(data => {
-			if(data.id) {
-				const userId = data.id;
+		.then(data => {console.log(data)
+			setUser(data.id)
+			localStorage.setItem('user',data.id)
+			if(data.number) {
+				const userId = data.number;
 				fetch('http://localhost:5000/admin', {
 					method: 'POST',
 					headers: {

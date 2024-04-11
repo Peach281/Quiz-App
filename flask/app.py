@@ -35,6 +35,18 @@ def create_ques():
 ''')
     db1.commit()
     db1.close()
+def create_score():
+    db1=get_db()
+    cursor=db1.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Score(
+        username TEXT NOT NULL,   
+        points INTEGER DEFAULT 0,
+        genre TEXT NOT NULL
+    )
+    
+''')
+    
 
 
 
@@ -44,7 +56,7 @@ def get_db():
     return db
 create_table()
 create_ques()
-
+create_score()
 def Ques():
     db = get_db()
     cursor = db.cursor()
@@ -73,9 +85,11 @@ def register():
         db=get_db()
         cursor=db.cursor()
         cursor.execute('INSERT INTO users (username,email,password) VALUES (?,?,?)',(name,email,hashed_password))
+        cursor.execute('SELECT * FROM users WHERE username=?',(name,))
+        user=cursor.fetchone()
         db.commit()
         db.close()
-        return {'message':'Data Submitted Successfully'},200
+        return {'message':'Data Submitted Successfully','id':user['username']},200
     except Exception as  e:
         return {'error':str(e)},500
 @app.route('/login',methods=['POST'])
@@ -94,7 +108,7 @@ def login():
         if user:
             hashed_password=hashlib.sha256(password.encode()).hexdigest()
             if(hashed_password==user['password']):
-                return {'id':user['id'],'message':'Login successful'},200
+                return {'id':user['username'],'message':'Login successful','number':user['id']},200
         return {'error':'Invalid username or password'},401
     except Exception as e:
         return {'error':str(e)},500
@@ -171,23 +185,47 @@ def change():
 
 
 @app.route("/getPoints",methods=['POST'])
+
 def getPoints():
-    data=request.get_json()
-    username = data.get('username')
-    new_score = data.get('total')
     try:
+        data = request.get_json()
+        username = data.get('username')
+        new_score = data.get('total')
+        print(new_score)
+        genre = data.get('genre')
         db = get_db()
         cursor = db.cursor()
-        cursor.execute('SELECT total_score FROM users WHERE id = ?', (username))
-        current_total_score = cursor.fetchone()['total_score']
-        updated_total_score = current_total_score + new_score
-        cursor.execute('UPDATE users SET total_score = ? WHERE id = ?', (updated_total_score, username))
+        cursor.execute('''SELECT * FROM Score WHERE username=? AND genre=?''',(username,genre,))
+        existing_user=cursor.fetchone()
+        if existing_user:
+            cursor.execute('UPDATE Score SET points=? WHERE username=? AND genre=?',(new_score,username,genre,))
+        else:
+            cursor.execute('''INSERT INTO Score (username,points,genre) VALUES (?,?,?)'''
+                           ,(username,new_score,genre,))
         db.commit()
         db.close()
+        
         return jsonify({'message': 'Score updated successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
+@app.route('/lb',methods=['GET'])
+def lb():
+    genre = request.args.get('genre')
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM Score WHERE genre=? ORDER BY points DESC', (genre,))
+    rows = cursor.fetchall()
+    db.close()
+    return jsonify([dict(row) for row in rows])
+@app.route('/pp',methods=['GET'])
+def pp():
+    username = request.args.get('username')
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM Score WHERE username=?', (username,))
+    rows = cursor.fetchall()
+    db.close()
+    return jsonify([dict(row) for row in rows])
 if __name__=='__main__':
     app.run(debug=True)
 

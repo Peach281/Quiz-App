@@ -1,6 +1,6 @@
 body
 {
-    background-image: url(4.jpg);
+    background-color:aquamarine;
     background-size: cover;
 }
 .gen {
@@ -12,7 +12,7 @@ body
 .gen h1{
     margin-bottom: 4%;
     font-size: 70px;
-    color:chartreuse;
+    color:blue;
     font-weight: bolder;
 }
 .button-container {
@@ -27,8 +27,8 @@ body
     font-size: 28px; 
     padding: 10px 20px; 
     border-radius: 5px;
-    color:crimson;
-    background-color: aliceblue;
+    color:black;
+    background-color: rgb(103, 180, 247);
     font-weight: bolder;
     text-decoration: none;
     cursor: pointer;

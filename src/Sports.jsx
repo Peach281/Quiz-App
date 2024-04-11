@@ -18,6 +18,31 @@ export default function Sports()
                 setOpArray(optionsArray);
             }
         }
+    
+    
+        React.useEffect(()=>{
+            const userr = localStorage.getItem('user')
+            console.log(userr)
+            if(userr)
+            {
+                fetch('http://localhost:5000/getPoints',{
+                method:['POST'],
+                headers:
+                {
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({ username: userr, total: total,genre:"Sports" })
+            })
+            .then(response=>response.json())
+            .then(data=>{
+                console.log('Success',data)
+            })
+            .catch(error=>{
+                console.error('Error',error)
+            })
+            }
+        },[total])
+        
     React.useEffect(()=>{
         fetch("http://localhost:5000/Data?genre=Sports")
         .then(res=>res.json())
@@ -55,7 +80,8 @@ export default function Sports()
         setGrandTotal(prev=>prev+10)
    }
     const back=()=>{
-    window.location.href="4.html"
+        
+        window.location.href="4.html"
     }
     const again = ()=>{
         window.location.href="Sports.html"

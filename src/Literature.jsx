@@ -18,6 +18,27 @@ export default function Literature()
         }
     }
     React.useEffect(()=>{
+        const userr = localStorage.getItem('user')
+        if(userr)
+        {
+            fetch('http://localhost:5000/getPoints',{
+            method:['POST'],
+            headers:
+            {
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({ username: userr, total: total,genre:"Literature" })
+        })
+        .then(response=>response.json())
+        .then(data=>{
+            console.log('Success',data)
+        })
+        .catch(error=>{
+            console.error('Error',error)
+        })
+        }
+    },[total])
+    React.useEffect(()=>{
         fetch("http://localhost:5000/Data?genre=Literature")
         .then(res=>res.json())
         .then(d=>setQues(d))

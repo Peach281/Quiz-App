@@ -20,6 +20,28 @@ function Politics()
         }
     }
     React.useEffect(()=>{
+        const userr = localStorage.getItem('user')
+        console.log(userr)
+        if(userr)
+        {
+            fetch('http://localhost:5000/getPoints',{
+            method:['POST'],
+            headers:
+            {
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({ username: userr, total: total,genre:"Politics" })
+        })
+        .then(response=>response.json())
+        .then(data=>{
+            console.log('Success',data)
+        })
+        .catch(error=>{
+            console.error('Error',error)
+        })
+        }
+    },[total])
+    React.useEffect(()=>{
         fetch('http://localhost:5000/Data?genre=Politics')
         .then(res=>res.json())
         .then(d=>setQues(d))
@@ -85,7 +107,7 @@ function Politics()
                     
                     {index==ques.length && (
                     <div>
-                    <h1>You have scored {total} points out of 80!</h1>
+                    <h1>You have scored {total} points out of {grandTotal}!</h1>
                     <button className="btn" onClick={back}>Main Menu</button>
                     <button  className="btn1" onClick={again}>Play again</button> 
                     </div>)

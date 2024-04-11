@@ -8,6 +8,7 @@ function Register()
         email:"",
         password:""
     })
+    const[user,setUser] = React.useState("")
     function handleChange(event)
     {
         const {name,value} = event.target
@@ -34,6 +35,8 @@ function Register()
         .then(response=>response.json())
         .then(data=>{
             console.log('Success',data)
+            setUser(data.id)
+            localStorage.setItem('user',data.id)
             window.location.href="4.html"
         })
         .catch(error=>{
