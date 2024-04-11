@@ -41,11 +41,11 @@
     ```
 - Activate virtual environment 
   ```bash
- .\flask_server\Scripts\activate  
+    .\flask_server\Scripts\activate  
   ```
 - Run
   ```bash
-  python app.py  
+    python app.py  
   ```
 
   
