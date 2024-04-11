@@ -15,12 +15,14 @@ def create_table():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL,
             email TEXT NOT NULL,
-            password TEXT NOT NULL,
-            total_score INTEGER DEFAULT 0
+            password TEXT NOT NULL
         )
+       
     ''')
-    db.commit()
-    db.close()
+   
+    
+    
+
 def create_ques():
     db1=get_db()
     cursor=db1.cursor()
@@ -33,6 +35,7 @@ def create_ques():
         answer TEXT NOT NULL
     )
 ''')
+    
     db1.commit()
     db1.close()
 def create_score():
@@ -46,6 +49,7 @@ def create_score():
     )
     
 ''')
+    
     
 
 
@@ -80,18 +84,28 @@ def register():
     password = data.get('password')
     if not name or not email or not password :
         return jsonify({'error':'Name and email are required'}),400
-    try:
-        hashed_password=hashlib.sha256(password.encode()).hexdigest()
-        db=get_db()
-        cursor=db.cursor()
-        cursor.execute('INSERT INTO users (username,email,password) VALUES (?,?,?)',(name,email,hashed_password))
-        cursor.execute('SELECT * FROM users WHERE username=?',(name,))
-        user=cursor.fetchone()
-        db.commit()
-        db.close()
-        return {'message':'Data Submitted Successfully','id':user['username']},200
-    except Exception as  e:
-        return {'error':str(e)},500
+    db=get_db()
+    cursor=db.cursor()
+    cursor.execute('SELECT * FROM users WHERE username=?',(name,))
+    existence = cursor.fetchone()
+    
+    if existence:
+        return {'message':'This username is not available'} 
+    db.commit()
+    db.close()
+    if not existence:
+        try:
+            hashed_password=hashlib.sha256(password.encode()).hexdigest()
+            db=get_db()
+            cursor=db.cursor()
+            cursor.execute('INSERT INTO users (username,email,password) VALUES (?,?,?)',(name,email,hashed_password))
+            cursor.execute('SELECT * FROM users WHERE username=?',(name,))
+            user=cursor.fetchone()
+            db.commit()
+            db.close()
+            return {'message':'Data Submitted Successfully','id':user['username']},200
+        except Exception as  e:
+            return {'error':str(e)},500
 @app.route('/login',methods=['POST'])
 def login():
     req=request.get_json()

@@ -36,8 +36,16 @@ function Register()
         .then(data=>{
             console.log('Success',data)
             setUser(data.id)
-            localStorage.setItem('user',data.id)
-            window.location.href="4.html"
+            if(data.message == 'This username is not available')
+            {
+                alert('This username is already in use')
+                window.location.href="index.html"
+            }
+            else
+            {
+                localStorage.setItem('user',data.id)
+                 window.location.href="4.html"
+            }
         })
         .catch(error=>{
             console.error('Error',error)
