@@ -36,6 +36,7 @@ def create_ques():
     )
 ''')
     
+    
     db1.commit()
     db1.close()
 def create_score():
@@ -67,12 +68,12 @@ def Ques():
     cursor.execute("SELECT ques FROM Ques")
     prev_questions = cursor.fetchall()
     for ques in questions:
+        
         if ques['name'] not in [row[0] for row in prev_questions]:
             cursor.execute('''INSERT OR REPLACE INTO Ques (genre,ques,options,answer) VALUES(?,?,?,?)''',
                            (ques["genre"],ques["name"], ",".join(ques["options"]), ques["answer"]))
     db.commit()
     db.close()
-
 
 
 @app.route('/register',methods=['POST'])

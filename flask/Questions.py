@@ -50,7 +50,7 @@ questions=[
         },
         {
             "genre":"Literature",
-            "name":"What author became famous for his six-volume biography of Lincoln?",
+            "name":"Which author became famous for his six-volume biography of Lincoln?",
             "options":["Mark Twain","Ruskin Bond","Carl Sandburg","HP Lovecraft"],
             "answer":"Carl Sandburg"
         },
@@ -62,8 +62,8 @@ questions=[
         },
         {
             "genre":"Literature",
-            "name":"What traveler compiled a widely read book about his travels?",
-            "options":["Christoher Columbus","Marco Polo","Ferdinand Magellan","Ponce De Leon"],
+            "name":"Which traveler compiled a widely read book about his travels?",
+            "options":["Christopher Columbus","Marco Polo","Ferdinand Magellan","Ponce De Leon"],
             "answer":"Marco Polo"
         },
         {
