@@ -11,6 +11,7 @@ export default function Sports()
     const [total,setTotal] = React.useState(0)
     const [count,setCount]= React.useState(0)
     const [opArray,setOpArray] = React.useState([])
+    const [final,setFinal]=React.useState(0)
     const [grandTotal,setGrandTotal] = React.useState(0)
     const convert = () => {
             if (ques[currentIndex] && ques[currentIndex].options) {
@@ -20,28 +21,26 @@ export default function Sports()
         }
     
     
-        React.useEffect(()=>{
-            const userr = localStorage.getItem('user')
-            console.log(userr)
-            if(userr)
-            {
-                fetch('http://localhost:5000/getPoints',{
+        React.useEffect(() => {
+            if (final === 1 && total !== null) {
+              const userr = localStorage.getItem('user')
+              fetch('http://localhost:5000/getPoints',{
                 method:['POST'],
                 headers:
                 {
-                    "Content-Type":"application/json"
+                  "Content-Type":"application/json"
                 },
                 body:JSON.stringify({ username: userr, total: total,genre:"Sports" })
-            })
-            .then(response=>response.json())
-            .then(data=>{
+              })
+              .then(response=>response.json())
+              .then(data=>{
                 console.log('Success',data)
-            })
-            .catch(error=>{
+              })
+              .catch(error=>{
                 console.error('Error',error)
-            })
+              })
             }
-        },[total])
+          }, [final]);
         
     React.useEffect(()=>{
         fetch("http://localhost:5000/Data?genre=Sports")
@@ -50,10 +49,11 @@ export default function Sports()
 
     },[])
     React.useEffect(() => {
-        
+        console.log(currentIndex)
         convert();
     }, [currentIndex, ques]);
    const handleSubmit = ()=>{
+        
         const currentQues = ques[currentIndex]
         if(ans.toLowerCase()==currentQues.answer.toLowerCase())
         {
@@ -78,6 +78,8 @@ export default function Sports()
         setMessage('')
         setCount(0)
         setGrandTotal(prev=>prev+10)
+        if(currentIndex+1===ques.length) setFinal(1)
+        
    }
     const back=()=>{
         
@@ -90,6 +92,7 @@ export default function Sports()
         <div>
             {ques.length>0 && currentIndex<ques.length &&(
                 <div>
+              
                     <h1>{ques[currentIndex].ques}</h1>
                     <div className="list">
                     <ul style={{ listStyleType: 'none', padding: 0 }}>
@@ -109,8 +112,10 @@ export default function Sports()
                     </div>
 
                     {count<1 && <button onClick={handleSubmit} className="btn">Submit Answer</button>}
-                    <button onClick={nextQues} className="btn1">Next Question</button>
-                    {result&&<p className="m">{message}</p>}
+                    
+                
+                <button onClick={nextQues} className="btn1">Next Question</button>
+                {result&&<p className="m">{message}</p>}
                 </div>
             )}
             {currentIndex===ques.length && (

@@ -25,7 +25,7 @@ function Pp()
         </thead>
         <tbody>
           {pp.map((entry, index) => (
-            <tr key={entry.genre}>
+            <tr key={index}>
               <td>{index + 1}</td>
               <td>{entry.username}</td>
               <td>{entry.points}</td>

@@ -12,6 +12,7 @@ function Politics()
     const [count,setCount] = React.useState(0)
     const[opArray,setOpArray]=React.useState([])
     const[grandTotal,setGrandTotal] = React.useState(0)
+    const[final,setFinal]=React.useState(0)
     const convert=()=>
     {
         if(ques[index] && ques[index].options){
@@ -20,27 +21,30 @@ function Politics()
         }
     }
     React.useEffect(()=>{
-        const userr = localStorage.getItem('user')
-        console.log(userr)
-        if(userr)
+        if(final===1 && total!==null)
         {
-            fetch('http://localhost:5000/getPoints',{
-            method:['POST'],
-            headers:
+            const userr = localStorage.getItem('user')
+            console.log(userr)
+            if(userr)
             {
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({ username: userr, total: total,genre:"Politics" })
-        })
-        .then(response=>response.json())
-        .then(data=>{
-            console.log('Success',data)
-        })
-        .catch(error=>{
-            console.error('Error',error)
-        })
-        }
-    },[total])
+                fetch('http://localhost:5000/getPoints',{
+                method:['POST'],
+                headers:
+                {
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({ username: userr, total: total,genre:"Politics" })
+            })
+            .then(response=>response.json())
+            .then(data=>{
+                console.log('Success',data)
+            })
+            .catch(error=>{
+                console.error('Error',error)
+            })
+            }
+    }
+    },[final])
     React.useEffect(()=>{
         fetch('http://localhost:5000/Data?genre=Politics')
         .then(res=>res.json())
@@ -49,7 +53,8 @@ function Politics()
     React.useEffect(()=>{
         convert()
     },[index,ques])
-    const handleSub=()=>{
+    const handleSub=(event)=>{
+        event.preventDefault()
         const current = ques[index]
         if(ans.toLowerCase()===current.answer.toLowerCase())
         {
@@ -70,6 +75,7 @@ function Politics()
         setMessage('')
         setCount(0)
         setGrandTotal(prev=>prev+10)
+        if(index+1 === ques.length) setFinal(1)
     }
     const back=()=>{
         window.location.href="4.html"

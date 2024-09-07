@@ -11,6 +11,7 @@ export default function Literature()
     const [total,setTotal] = React.useState(0)
     const [count,setCount]= React.useState(0)
     const[opArray,setOpArray] = React.useState([])
+    const[final,setFinal]=React.useState(0)
     const convert = ()=>{
         if(ques[currentIndex] && ques[currentIndex].options)
         {
@@ -18,9 +19,10 @@ export default function Literature()
         }
     }
     React.useEffect(()=>{
-        const userr = localStorage.getItem('user')
-        if(userr)
+        if(final === 1 && total !== null)
         {
+            const userr = localStorage.getItem('user')
+            
             fetch('http://localhost:5000/getPoints',{
             method:['POST'],
             headers:
@@ -28,16 +30,17 @@ export default function Literature()
                 "Content-Type":"application/json"
             },
             body:JSON.stringify({ username: userr, total: total,genre:"Literature" })
-        })
-        .then(response=>response.json())
-        .then(data=>{
-            console.log('Success',data)
-        })
-        .catch(error=>{
-            console.error('Error',error)
-        })
+            })
+            .then(response=>response.json())
+            .then(data=>{
+                console.log('Success',data)
+            })
+            .catch(error=>{
+                console.error('Error',error)
+            })
+        
         }
-    },[total])
+    },[final])
     React.useEffect(()=>{
         fetch("http://localhost:5000/Data?genre=Literature")
         .then(res=>res.json())
@@ -45,8 +48,10 @@ export default function Literature()
     },[])
     React.useEffect(()=>{
         convert()
+
     },[currentIndex,ques])
-   const handleSubmit = ()=>{
+   const handleSubmit = (event)=>{
+        event.preventDefault()
         const currentQues = ques[currentIndex]
         if(ans.toLowerCase()===currentQues.answer.toLowerCase())
         {
@@ -70,6 +75,7 @@ export default function Literature()
         setAns('')
         setMessage('')
         setCount(0)
+        if(currentIndex+1===ques.length) setFinal(1)
    }
     const back=()=>{
     window.location.href="4.html"

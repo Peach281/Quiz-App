@@ -20,8 +20,10 @@ def create_table():
        
     ''')
    
-    
-    
+def get_db():
+    db=sqlite3.connect(DATABASE)
+    db.row_factory=sqlite3.Row
+    return db   
 
 def create_ques():
     db1=get_db()
@@ -50,15 +52,12 @@ def create_score():
     )
     
 ''')
+
     
-    
 
 
 
-def get_db():
-    db=sqlite3.connect(DATABASE)
-    db.row_factory=sqlite3.Row
-    return db
+
 create_table()
 create_ques()
 create_score()
@@ -131,7 +130,7 @@ def login():
 def admin():
     data=request.get_json()
     id=data.get('id')
-    if(id==3):
+    if(id==8):
         return jsonify({'message':'You are admin'})
     else:
         return jsonify({'message':'You are not the admin'}),401
