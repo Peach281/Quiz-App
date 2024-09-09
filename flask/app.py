@@ -58,6 +58,8 @@ def create_score():
 
 
 
+
+
 create_table()
 create_ques()
 create_score()
@@ -74,11 +76,10 @@ def Ques():
     db.commit()
     db.close()
 
-
 @app.route('/register',methods=['POST'])
-
 def register():
     data = request.get_json()
+    
     name = data.get('username')
     email = data.get('email')
     password = data.get('password')

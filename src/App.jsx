@@ -5,7 +5,7 @@ export default function App() {
   {
     setTimeout(()=>{
       window.location.href="3.html"
-    },1000)
+    },10)
   }
   return(
     <div >
