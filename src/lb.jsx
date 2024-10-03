@@ -2,17 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import './lb.css'
 const Leaderboard = () => {
-  const [leaderboardData, setLeaderboardData] = React.useState([]);
-  const [cat, setCat] = React.useState("");
-
-  React.useEffect(() => {
-    if (cat) {
-      fetch(`http://localhost:5000/lb?genre=${cat}`)
-        .then(res => res.json())
-        .then(data => setLeaderboardData(data))
-        .catch(error => console.error("Error fetching leaderboard data:", error));
-    }
-  }, [cat]);
+ 
 
   function handle(cat) {
     window.location.href=`${cat}.html`

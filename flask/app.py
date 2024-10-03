@@ -1,4 +1,4 @@
-from flask import Flask,request,jsonify
+from flask import Flask,request,jsonify,render_template
 from flask_cors import CORS
 import sqlite3
 import hashlib
@@ -91,7 +91,7 @@ def register():
     existence = cursor.fetchone()
     
     if existence:
-        return {'message':'This username is not available'} 
+        return {'message':'This username is not available'}
     db.commit()
     db.close()
     if not existence:
@@ -131,7 +131,7 @@ def login():
 def admin():
     data=request.get_json()
     id=data.get('id')
-    if(id==8):
+    if(id==16):
         return jsonify({'message':'You are admin'})
     else:
         return jsonify({'message':'You are not the admin'}),401

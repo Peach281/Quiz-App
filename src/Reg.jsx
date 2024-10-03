@@ -31,8 +31,9 @@ function Register()
                 'Content-Type' : "application/json", 
             },
             body:JSON.stringify(formData),
-          
+            
         })
+        
         .then(response=>response.json())
         .then(data=>{
             console.log('Success',data)
@@ -40,12 +41,12 @@ function Register()
             if(data.message == 'This username is not available')
             {
                 alert('This username is already in use')
-                window.location.href="index.html"
+                window.location.href="3.html"
             }
             else
             {
                 localStorage.setItem('user',data.id)
-                 window.location.href="4.html"
+                window.location.href="4.html"
             }
         })
         .catch(error=>{
